@@ -1,0 +1,8 @@
+[
+  {
+    "command": "open_in_git",
+    "keys": [
+      "ctrl+shift+o"
+    ]
+  }
+]

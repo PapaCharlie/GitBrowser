@@ -1,0 +1,13 @@
+{
+  "name": "OpenInGit",
+  "description": "Attemps to open the current file, line or selection in the browser, e.g. in Github",
+  "author": "Paul Chesnais",
+  "homepage": "https://github.com/PapaCharlie/OpenInGit",
+  "details": "https://github.com/PapaCharlie/OpenInGit",
+  "releases": [
+    {
+      "details": "https://github.com/PapaCharlie/OpenInGit/tags",
+      "sublime_text": ">=3000"
+    }
+  ]
+}

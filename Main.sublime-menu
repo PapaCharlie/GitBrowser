@@ -1,0 +1,10 @@
+[
+    {
+        "id": "selection",
+        "children":
+        [
+        	{"caption" : "-"},
+            { "command": "open_in_git", "caption": "Open In Git" }
+        ]
+    }
+]
