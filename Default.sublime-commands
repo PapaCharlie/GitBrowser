@@ -1,6 +1,6 @@
 [
     {
-        "caption": "OpenInGit: Open",
+        "caption": "Open in Git",
         "command": "open_in_git"
     }
 ]
