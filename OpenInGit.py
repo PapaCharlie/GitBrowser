@@ -8,10 +8,15 @@ class GitException(Exception):
 class GitFile:
     def __init__(self, filename):
         self.filename = filename
-        self.cwd = os.path.sep.join(self.filename.split(os.path.sep)[0:-1])
+        if os.path.isdir(filename):
+            self.cwd = self.filename
+            self.isfile = False
+        else:
+            self.cwd = os.path.sep.join(self.filename.split(os.path.sep)[0:-1])
+            self.isfile = True
         _, err, exitcode = self.git_command("config --get remote.origin.url")
         if exitcode != 0:
-            raise GitException("This file/directory not inside a git directory!: " + err)
+            raise GitException("\"%s\" not inside a git directory!"%self.filename)
 
     # Returns the stdout, the stderr and the exit code
     def git_command(self, command):
@@ -35,18 +40,21 @@ class GitFile:
             slug = remote
 
         if "github" in slug.lower():
-            if selection:
-                lines = "#" + ("L%d-L%d"%selection if len(selection) == 2 else "L%d"%selection)
+            if self.isfile:
+                if selection:
+                    lines = "#" + ("L%d-L%d"%selection if len(selection) == 2 else "L%d"%selection)
+                else:
+                    lines = ""
+                url = "https://{slug}/blob/{ref}/{path}{lines}".format(slug = slug, ref = ref, path = path, lines = lines)
             else:
-                lines = ""
-            url = "https://{slug}/blob/{ref}/{path}{lines}".format(slug = slug, ref = ref, path = path, lines =lines)
+                url = "https://{slug}/tree/{ref}/{path}".format(slug = slug, ref = ref, path = path)
             webbrowser.open(url)
         elif "bitbucket" in slug.lower():
             if selection:
                 lines = "#-" + ("%d:%d"%selection if len(selection) == 2 else "%d"%selection)
             else:
                 lines = ""
-            url = "https://{slug}/src/{ref}/{path}{lines}".format(slug = slug, ref = ref, path = path, lines =lines)
+            url = "https://{slug}/src/{ref}/{path}{lines}".format(slug = slug, ref = ref, path = path, lines = lines)
             webbrowser.open(url)
         else:
             raise GitException(remote + " is not a supported git host!")
@@ -69,13 +77,13 @@ class OpenInGitCommand(sublime_plugin.WindowCommand):
                 selection = None
             gitfile.open(selection)
         except GitException as err:
-            sublime.error_message(err.message)
+            sublime.error_message(str(err))
 
 class OpenInGitFromSidebarCommand(sublime_plugin.WindowCommand):
-    def run(self, files = []):
-        for f in files:
+    def run(self, paths = []):
+        for path in paths:
             try:
-                gitfile = GitFile(f)
+                gitfile = GitFile(path)
                 gitfile.open()
             except GitException as err:
-                sublime.error_message(err.message)
+                sublime.error_message(str(err))

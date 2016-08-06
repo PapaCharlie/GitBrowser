@@ -3,6 +3,6 @@
       "caption": "Open in Git",
       "command": "open_in_git_from_sidebar",
       "id": "sidebar-open-in-git",
-      "args": {"files": []}
+      "args": {"paths": []}
     }
 ]
