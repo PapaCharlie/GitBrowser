@@ -31,19 +31,27 @@ class OpenInGitCommand(sublime_plugin.WindowCommand):
             else:
                 slug = remote
 
+            selection = self.window.active_view().sel()[0]
+            if selection.a != selection.b: # Selection not empty
+                firstline = self.window.active_view().rowcol(selection.a)
+                lastline = self.window.active_view().rowcol(selection.b)
+                lastline = lastline[0] - 1 if lastline[1] == 0 else lastline[0]
+                firstline = firstline[0]
+                if firstline == lastline:
+                    lastline = None
+                selection = True
+            else:
+                selection = False
+
             if "github" in slug.lower():
-                url = "https://{slug}/blob/{ref}/{path}".format(slug = slug, ref = ref, path = path)
-                print(ref)
-                print(url)
+                if selection:
+                    lines = "#" + ("L%d-L%d"%(firstline, lastline) if lastline else "L%d"%firstline)
+                else:
+                    lines = ""
+                url = "https://{slug}/blob/{ref}/{path}{lines}".format(slug = slug, ref = ref, path = path, lines =lines)
                 webbrowser.open(url)
             else:
                 sublime.error_message(remote + " is not a supported git host!")
-            # for region in self.window.active_view().sel():
-            #     if region.a != region.b: # Selection not empty
-            #         firstline = self.window.active_view().rowcol(region.a)[0] + 1
-            #         lastline = self.window.active_view().rowcol(region.b)[0] + 1
-            #     else:
-            #         pass
         else:
             sublime.error_message("This is not inside a git directory!: " + err)
 
