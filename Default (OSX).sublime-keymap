@@ -1,6 +1,6 @@
 [
   {
-    "command": "open_in_git",
+    "command": "open_with_git_browser",
     "keys": [
       "ctrl+shift+o"
     ]

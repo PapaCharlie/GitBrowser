@@ -1,12 +1,12 @@
 {
-  "name": "OpenInGit",
+  "name": "GitBrowser",
   "description": "Attemps to open the current file, line or selection in the browser, e.g. in Github",
   "author": "Paul Chesnais",
-  "homepage": "https://github.com/PapaCharlie/OpenInGit",
-  "details": "https://github.com/PapaCharlie/OpenInGit",
+  "homepage": "https://github.com/PapaCharlie/GitBrowser",
+  "details": "https://github.com/PapaCharlie/GitBrowser",
   "releases": [
     {
-      "details": "https://github.com/PapaCharlie/OpenInGit/tags",
+      "details": "https://github.com/PapaCharlie/GitBrowser/tags",
       "sublime_text": ">=3000"
     }
   ]

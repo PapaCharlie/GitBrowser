@@ -1,4 +1,4 @@
-OpenInGit
+GitBrowser
 ========================
 
 Description

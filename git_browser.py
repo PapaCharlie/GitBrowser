@@ -1,7 +1,7 @@
 import sublime, sublime_plugin
 from .utils import *
 
-class OpenInGitCommand(sublime_plugin.WindowCommand):
+class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
     def run(self):
         try:
             gitfile = GitFile(self.window.active_view().file_name())
@@ -21,7 +21,7 @@ class OpenInGitCommand(sublime_plugin.WindowCommand):
         except GitException as err:
             sublime.error_message(str(err))
 
-class OpenInGitFromSidebarCommand(sublime_plugin.WindowCommand):
+class OpenWithGitBrowserFromSidebarCommand(sublime_plugin.WindowCommand):
     def run(self, paths = []):
         for path in paths:
             try:

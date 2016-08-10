@@ -1,7 +1,7 @@
 [
     {
-      "caption": "Open in Git",
-      "command": "open_in_git_from_sidebar",
+      "caption": "Open with GitBrowser",
+      "command": "open_with_git_browser_from_sidebar",
       "id": "sidebar-open-in-git",
       "args": {"paths": []}
     }
