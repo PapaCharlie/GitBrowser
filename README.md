@@ -10,7 +10,7 @@ Shortcut Keys
 ------------------
 
 All Platforms:
-- Ctrl+Shift+o --> Open selection or current line.
+- `Ctrl+Shift+o` --> Open selection or current line.
 
 Side Bar
 ------------------
@@ -18,4 +18,5 @@ Side Bar
 Open the file or directory directly.
 
 Currently supported Git repos hosts:
-  Github.com
++ Github.com
++ BitBucket.com
