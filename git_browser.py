@@ -1,5 +1,7 @@
-import sublime, sublime_plugin
-from .utils import *
+import sublime
+import sublime_plugin
+from .utils import GitFile, GitException
+
 
 class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
     def run(self):
@@ -9,7 +11,8 @@ class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
             if selection.a != selection.b:
                 firstline = self.window.active_view().rowcol(selection.a)
                 lastline = self.window.active_view().rowcol(selection.b)
-                lastline = (lastline[0] - 1 if lastline[1] == 0 else lastline[0]) + 1
+                lastline = (lastline[0] - 1 if lastline[1] == 0
+                            else lastline[0]) + 1
                 firstline = firstline[0] + 1
                 if firstline == lastline:
                     selection = (firstline,)
@@ -21,8 +24,9 @@ class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
         except GitException as err:
             sublime.error_message(str(err))
 
+
 class OpenWithGitBrowserFromSidebarCommand(sublime_plugin.WindowCommand):
-    def run(self, paths = []):
+    def run(self, paths=[]):
         for path in paths:
             try:
                 gitfile = GitFile(path)
