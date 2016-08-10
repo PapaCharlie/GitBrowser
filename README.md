@@ -18,5 +18,5 @@ Side Bar
 Open the file or directory directly.
 
 Currently supported Git repos hosts:
-+ Github.com
++ GitHub.com
 + BitBucket.com

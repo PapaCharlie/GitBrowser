@@ -13,7 +13,7 @@ class Host:
     def format_url(self, selection = None):
         pass
 
-class Github(Host):
+class GitHub(Host):
     def __init__(self, gitfile):
         Host.__init__(self, gitfile)
 
@@ -38,4 +38,4 @@ class BitBucket(Host):
             lines = ""
         url = "https://{host}/src/{ref}/{path}{lines}".format(host = self.host, ref = self.ref, path = self.path, lines = lines)
 
-hosts = [Github, BitBucket]
+hosts = [GitHub, BitBucket]
