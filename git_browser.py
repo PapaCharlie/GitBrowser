@@ -6,21 +6,25 @@ from .utils import GitFile, GitException
 class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
     def run(self):
         try:
-            gitfile = GitFile(self.window.active_view().file_name())
-            selection = self.window.active_view().sel()[0]
-            if selection.a != selection.b:
-                firstline = self.window.active_view().rowcol(selection.a)
-                lastline = self.window.active_view().rowcol(selection.b)
-                lastline = (lastline[0] - 1 if lastline[1] == 0
-                            else lastline[0]) + 1
-                firstline = firstline[0] + 1
-                if firstline == lastline:
-                    selection = (firstline,)
+            filename = self.window.active_view().file_name()
+            if filename is not None:
+                gitfile = GitFile(filename)
+                selection = self.window.active_view().sel()[0]
+                if selection.a != selection.b:
+                    firstline = self.window.active_view().rowcol(selection.a)
+                    lastline = self.window.active_view().rowcol(selection.b)
+                    lastline = (lastline[0] - 1 if lastline[1] == 0
+                                else lastline[0]) + 1
+                    firstline = firstline[0] + 1
+                    if firstline == lastline:
+                        selection = (firstline,)
+                    else:
+                        selection = (firstline, lastline)
                 else:
-                    selection = (firstline, lastline)
+                    selection = None
+                gitfile.open(selection)
             else:
-                selection = None
-            gitfile.open(selection)
+                sublime.error_message("Cannot open this file!")
         except GitException as err:
             sublime.error_message(str(err))
 
