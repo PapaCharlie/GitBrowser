@@ -11,8 +11,14 @@ class OpenWithGitBrowserCommand(sublime_plugin.WindowCommand):
                 gitfile = GitFile(filename)
                 selection = self.window.active_view().sel()[0]
                 if selection.a != selection.b:
-                    firstline = self.window.active_view().rowcol(selection.a)
-                    lastline = self.window.active_view().rowcol(selection.b)
+                    firstline = min(
+                        self.window.active_view().rowcol(selection.a),
+                        self.window.active_view().rowcol(selection.b)
+                    )
+                    lastline = max(
+                        self.window.active_view().rowcol(selection.a),
+                        self.window.active_view().rowcol(selection.b)
+                    )
                     lastline = (lastline[0] - 1 if lastline[1] == 0
                                 else lastline[0]) + 1
                     firstline = firstline[0] + 1
